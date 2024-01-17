@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './ota-update.component.html',
-  styleUrl: './ota-update.component.css'
+  styleUrl: './ota-update.component.scss'
 })
 export class OtaUpdateComponent {
 
