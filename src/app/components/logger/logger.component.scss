@@ -2,6 +2,14 @@
 //   margin: 20px
 // }
 
-mat-card-header {
-  align-self: center;
+mat-card {
+  height: 20em;
+
+  mat-card-header {
+    align-self: center;
+    padding: 0.75em;
+  }
+  mat-card-content {
+    overflow: auto;
+  }
 }
