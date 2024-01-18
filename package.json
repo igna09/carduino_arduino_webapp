@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-dist": "ng build --aot --optimization --progress --output-hashing none && gzip -9 dist/carduino_arduino_webapp/browser/*"
   },
   "private": true,
   "dependencies": {

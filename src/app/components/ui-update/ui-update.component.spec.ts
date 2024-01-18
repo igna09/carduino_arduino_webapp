@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OtaUpdateComponent } from './ota-update.component';
+import { UiUpdateComponent } from './ui-update.component';
 
-describe('OtaUpdateComponent', () => {
-  let component: OtaUpdateComponent;
-  let fixture: ComponentFixture<OtaUpdateComponent>;
+describe('UiUpdateComponent', () => {
+  let component: UiUpdateComponent;
+  let fixture: ComponentFixture<UiUpdateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OtaUpdateComponent]
+      imports: [UiUpdateComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(OtaUpdateComponent);
+    fixture = TestBed.createComponent(UiUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
