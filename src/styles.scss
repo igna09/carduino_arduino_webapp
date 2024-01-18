@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+app-root {
+  height: 100%;
+  display: block;
+  background-color: rgba(117,29, 125, 0.4);
+}
