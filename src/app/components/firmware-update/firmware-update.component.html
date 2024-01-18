@@ -4,7 +4,7 @@
     <mat-card-subtitle>Drag and drop or click to upload</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <form style="display: none;" #updateForm>
+    <form style="display: none;" #updateForm enctype='multipart/form-data'>
       <input type="file" #fileDropRef id="fileDropRef" [multiple]="false" (change)="fileBrowseHandler($event)" accept="application/octet-stream"/>
     </form>
     <div *ngIf="selectedFile !== undefined" id="fileContainer">

@@ -25,7 +25,8 @@ export class FirmwareUpdateComponent {
   sendUpdateFile(event: any) {
     event.preventDefault();
     event.stopPropagation();
-    let data = new FormData(this.updateForm.nativeElement);
+    let data = new FormData();
+    data.append("file", this.selectedFile);
     let request = new XMLHttpRequest();
     request.open('POST', '/update');
     request.upload.addEventListener('progress', p=>{
