@@ -8,7 +8,8 @@
       <input type="file" #fileDropRef id="fileDropRef" [multiple]="false" (change)="fileBrowseHandler($event)" accept="application/octet-stream"/>
     </form>
     <div *ngIf="selectedFile !== undefined" id="fileContainer">
-      <span>{{selectedFile.name}}</span>
+      <span id="filename">{{selectedFile.name}}</span>
+      <mat-progress-bar [mode]="'determinate'" [value]="percentage" [ngStyle]="{visibility: percentage > 0 ? 'visible' : 'hidden'}"></mat-progress-bar>
     </div>
     <button *ngIf="selectedFile !== undefined" mat-raised-button color="primary" (click)="sendUpdateFile($event)">Upload</button>
   </mat-card-content>
