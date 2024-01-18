@@ -13,7 +13,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 })
 export class FirmwareUpdateComponent {
   selectedFile: any = undefined;
-  @ViewChild('updateForm') updateForm: any;
   percentage: number = 0;
 
   fileBrowseHandler(event: any) {

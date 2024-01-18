@@ -1,1 +1,17 @@
-<p>ui-update works!</p>
+<mat-card onclick="fileInputRef.click()">
+  <mat-card-header>
+    <mat-card-title>File update</mat-card-title>
+    <mat-card-subtitle>click to upload files</mat-card-subtitle>
+    <!-- <mat-card-subtitle>Drag and drop or click to upload</mat-card-subtitle> -->
+  </mat-card-header>
+  <mat-card-content>
+    <input type="file" style="display: none;" #fileInputRef id="fileInputRef" [multiple]="true" (change)="fileBrowseHandler($event)"/>
+    <div id="fileList" *ngIf="filesToUpload && filesToUpload.length > 0">
+      <div *ngFor="let fileToUpload of filesToUpload" class="fileToUpload">
+        <mat-progress-spinner [mode]="'determinate'" [value]="fileToUpload.percentage" [diameter]="25"></mat-progress-spinner>
+        <span id="filename">{{fileToUpload.name}}</span>
+      </div>
+    </div>
+    <button *ngIf="filesToUpload && filesToUpload.length > 0" mat-raised-button color="primary" (click)="uploadFiles($event)">Upload</button>
+  </mat-card-content>
+</mat-card>
