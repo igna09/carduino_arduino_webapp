@@ -1,16 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-log',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './log.component.html',
   styleUrl: './log.component.scss'
 })
-export class LogComponent {
+export class LogComponent implements OnInit {
 
   @Input() message: string = '';
+  now!: Date;
 
   constructor(){}
+
+  ngOnInit(): void {
+    this.now = new Date();
+  }
 
 }

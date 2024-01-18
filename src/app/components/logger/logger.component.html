@@ -2,9 +2,7 @@
   <mat-card-header>
     <mat-card-title>Logger</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
-    <div>
-      <app-log *ngFor="let log of receivedMessages" [message]="log"></app-log>
-    </div>
+  <mat-card-content #list>
+    <app-log *ngFor="let log of receivedMessages" [message]="log"></app-log>
   </mat-card-content>
 </mat-card>

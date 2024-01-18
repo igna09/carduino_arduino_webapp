@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import {MatCardModule} from '@angular/material/card';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
 import { SocketService } from '../../services/socket/socket.service';
 import { LogComponent } from './log/log.component';
 import { CommonModule } from '@angular/common';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-logger',
@@ -14,6 +15,9 @@ import { CommonModule } from '@angular/common';
 export class LoggerComponent implements OnInit {
   receivedMessages: string[] = [];
 
+  @ViewChild('list')
+  list!: any;
+
   constructor(private socketService: SocketService, private viewRef: ViewContainerRef) {
 
   }
@@ -21,6 +25,12 @@ export class LoggerComponent implements OnInit {
   ngOnInit() {
     this.socketService.getMessages().subscribe(e => {
       this.receivedMessages.push(e);
+
+      const isScrolledToEnd = this.list.nativeElement.offsetHeight + this.list.nativeElement.scrollTop >= this.list.nativeElement.scrollHeight;
+
+      if(isScrolledToEnd) {
+        setTimeout(() => this.list.nativeElement.lastElementChild.scrollIntoView(), 1);
+      }
     });
   }
 
