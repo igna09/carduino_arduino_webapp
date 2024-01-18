@@ -19,4 +19,6 @@ io.on('connection', (socket) => {
   });
 });
 
+setInterval(() => io.emit('message', 'test'),1000) //logs hi every second
+
 httpServer.listen(port, () => console.log(`listening on port ${port}`));

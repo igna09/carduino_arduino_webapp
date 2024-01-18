@@ -15,8 +15,8 @@ export class SocketService {
   }
 
   getMessages() {
-    let observable = new Observable<{ user: String, message: String }>(observer => {
-      this.socket.on('new-message', (data) => {
+    let observable = new Observable<string>(observer => {
+      this.socket.on('message', (data) => {
         observer.next(data);
       });
       return () => { this.socket.disconnect(); };

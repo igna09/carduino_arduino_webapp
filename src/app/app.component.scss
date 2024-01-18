@@ -1,3 +1,12 @@
 // app-logger {
 //   margin: 20px;
 // }
+.cards-container {
+    display: flex;
+    justify-content: space-evenly;
+    // flex-wrap: wrap;
+    & > .card {
+        flex: 1 1 auto;
+        margin: 15px;
+    }
+}
