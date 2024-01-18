@@ -1,1 +1,15 @@
-<p>firmware-update works!</p>
+<mat-card appDrag onclick="fileDropRef.click()" (files)="fileDropHandler($event)">
+  <mat-card-header>
+    <mat-card-title>Firmware update</mat-card-title>
+    <mat-card-subtitle>Drag and drop or click to upload</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form style="display: none;" #updateForm>
+      <input type="file" #fileDropRef id="fileDropRef" [multiple]="false" (change)="fileBrowseHandler($event)" accept="application/octet-stream"/>
+    </form>
+    <div *ngIf="selectedFile !== undefined" id="fileContainer">
+      <span>{{selectedFile.name}}</span>
+    </div>
+    <button *ngIf="selectedFile !== undefined" mat-raised-button color="primary" (click)="sendUpdateFile($event)">Upload</button>
+  </mat-card-content>
+</mat-card>
