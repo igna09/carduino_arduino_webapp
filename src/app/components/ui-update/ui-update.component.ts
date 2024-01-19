@@ -16,7 +16,7 @@ export enum UploadCardStatus {
   standalone: true,
   imports: [CommonModule, MatCardModule, DragDirective, MatProgressSpinnerModule],
   templateUrl: './ui-update.component.html',
-  styleUrl: './ui-update.component.scss'
+  styleUrls: ['./ui-update.component.scss', '../../shared.scss']
 })
 export class UiUpdateComponent {
   filesToUpload: any[] = []; ;
@@ -54,7 +54,7 @@ export class UiUpdateComponent {
       let data = new FormData();
       data.append("file", fileToUpload.file);
       let request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost/file-upload');
+      request.open('POST', '/file-upload');
       request.upload.addEventListener('progress', p=>{
         let w = Math.round((p.loaded / p.total)*100);
         fileToUpload.percentage = w;
@@ -72,6 +72,7 @@ export class UiUpdateComponent {
   private resetFilesToUpload() {
     this.filesToUpload = [];
     this.fileInputUiUpdate.nativeElement.value = '';
+    this.status = UploadCardStatus.FilesNotSelected;
   }
 
   get buttonDisabled() {
@@ -89,5 +90,28 @@ export class UiUpdateComponent {
       default:
         return '';
     }
+  }
+
+  get cardClickable() {
+    return this.status === UploadCardStatus.FilesNotSelected || this.status === UploadCardStatus.FilesSeletected;
+  }
+
+  get buttonClickable() {
+    return this.status === UploadCardStatus.UploadFinished;
+  }
+
+  get isUploading() {
+    return this.status === UploadCardStatus.Uploading;
+  }
+
+  get canRemoveFile() {
+    return this.status === UploadCardStatus.FilesSeletected || this.status === UploadCardStatus.FilesNotSelected;
+  }
+
+  removeFile(event: any, file: any) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.filesToUpload.splice(this.filesToUpload.findIndex(e => e == file), 1);
   }
 }

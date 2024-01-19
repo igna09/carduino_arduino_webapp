@@ -1,4 +1,4 @@
-<mat-card onclick="fileInputUiUpdate.click()">
+<mat-card [ngClass]="{clickable: cardClickable, 'not-clickable': !cardClickable}" onclick="fileInputUiUpdate.click()">
   <mat-card-header>
     <mat-card-title>File update</mat-card-title>
     <mat-card-subtitle>click to upload files</mat-card-subtitle>
@@ -8,13 +8,16 @@
     <input type="file" style="display: none;" #fileInputUiUpdate id="fileInputUiUpdate" [multiple]="true" (change)="fileBrowseHandler($event)"/>
     <div id="fileList" *ngIf="filesToUpload && filesToUpload.length > 0">
       <div *ngFor="let fileToUpload of filesToUpload" class="fileToUpload">
-        <mat-progress-spinner *ngIf="fileToUpload.percentage < 100; else checkMark;" [mode]="'determinate'" [value]="fileToUpload.percentage" [diameter]="25"></mat-progress-spinner>
-        <ng-template #checkMark>
-          <div class="checkMark">✔</div>
+        <div *ngIf="canRemoveFile; else cannotRemoveFile" class="remove" (click)="removeFile($event, fileToUpload)">🗑️</div>
+        <ng-template #cannotRemoveFile>
+          <mat-progress-spinner *ngIf="isUploading; else notUploading;" [mode]="'determinate'" [value]="fileToUpload.percentage" [diameter]="25"></mat-progress-spinner>
+          <ng-template #notUploading>
+            <div class="checkMark">✔</div>
+          </ng-template>
         </ng-template>
         <span id="filename">{{fileToUpload.file.name}}</span>
       </div>
     </div>
-    <button [disabled]="buttonDisabled" *ngIf="filesToUpload && filesToUpload.length > 0" mat-raised-button color="primary" (click)="manageButtonClick($event)">{{buttonLabel}}</button>
+    <button [disabled]="buttonDisabled" *ngIf="filesToUpload && filesToUpload.length > 0" mat-raised-button color="primary" (click)="manageButtonClick($event)" [ngClass]="{clickable: buttonClickable}">{{buttonLabel}}</button>
   </mat-card-content>
 </mat-card>

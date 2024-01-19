@@ -1,0 +1,9 @@
+.clickable {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.not-clickable {
+  pointer-events: none;
+  cursor: default;
+}

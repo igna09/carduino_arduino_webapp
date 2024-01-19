@@ -10,7 +10,7 @@ import { FirmwareUpdateComponent } from './components/firmware-update/firmware-u
   standalone: true,
   imports: [CommonModule, RouterOutlet, LoggerComponent, UiUpdateComponent, FirmwareUpdateComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss', './shared.scss']
 })
 export class AppComponent {
   title = 'carduino_arduino_webapp';

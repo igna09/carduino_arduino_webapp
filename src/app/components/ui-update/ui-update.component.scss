@@ -42,10 +42,20 @@ mat-card {
         & .checkMark {
           height: 25px;
           width: 25px;
-          background: green;
+          background-color: green;
           border-radius: 50%;
           text-align: center;
           font-size: 17px;
+        }
+        & .remove {
+          height: 25px;
+          width: 25px;
+          border-radius: 50%;
+          text-align: center;
+          font-size: 17px;
+          &:hover {
+            background-color: rgba(211, 211, 211, 0.65);
+          }
         }
       }
     }
