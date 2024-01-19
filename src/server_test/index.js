@@ -1,8 +1,36 @@
 const app = require('express')();
-const httpServer = require('http').createServer(app);
+const cors = require('cors')
+const path = require('path');
+const busboy = require('busboy');
+const http = require('http');
+const fs = require('fs');
+const port = 80;
+
+app.use(cors());
+const httpServer = http.createServer(app);
+
+app.post('/file-upload', (req, res) => {
+  const bb = busboy({ headers: req.headers });
+  bb.on('file', (name, file, info) => {
+    filename = info.filename;
+    try {
+      if (!fs.existsSync(path.join(__dirname, 'uploads'))) {
+        fs.mkdirSync(path.join(__dirname, 'uploads'));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    const saveTo = path.join(__dirname, 'uploads', filename);
+    file.pipe(fs.createWriteStream(saveTo));
+  });
+  bb.on('close', () => {
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end(`upload success: ${filename}`);
+  });
+  req.pipe(bb);
+});
 const ws = require('ws');
 
-const port = 80;
 let wss = new ws.Server({server: httpServer, path: '/ws'});
 wss.on('connection', (socket) => {
   console.log('a user connected');
