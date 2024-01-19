@@ -22,6 +22,7 @@ export class UiUpdateComponent {
   filesToUpload: any[] = []; ;
   status: UploadCardStatus = UploadCardStatus.FilesNotSelected;
   @ViewChild('fileInputUiUpdate') fileInputUiUpdate: any = undefined;
+  uploadPercentage: number = 0;
 
   fileBrowseHandler(event: any) {
     for(let i = 0; i < event.target.files.length; i++) {
@@ -49,7 +50,7 @@ export class UiUpdateComponent {
   }
 
   private uploadFiles() {
-    this.filesToUpload.forEach(fileToUpload => {
+    /*this.filesToUpload.forEach(fileToUpload => {
       fileToUpload.percentage = 0;
       let data = new FormData();
       data.append("file", fileToUpload.file);
@@ -66,7 +67,23 @@ export class UiUpdateComponent {
       });
       request.send(data);
     });
+    this.status = UploadCardStatus.Uploading;*/
     this.status = UploadCardStatus.Uploading;
+    this.uploadPercentage = 0;
+    let data = new FormData();
+    this.filesToUpload.forEach(fileToUpload => {
+      data.append("file_" + fileToUpload.file.name.replace('', '_'), fileToUpload.file);
+    });
+    let request = new XMLHttpRequest();
+    request.open('POST', '/file-upload');
+    request.upload.addEventListener('progress', p=>{
+      let w = Math.round((p.loaded / p.total)*100);
+      this.uploadPercentage = w;
+    });
+    request.upload.addEventListener('loadend', p=> {
+        this.status = UploadCardStatus.UploadFinished;
+    });
+    request.send(data);
   }
 
   private resetFilesToUpload() {

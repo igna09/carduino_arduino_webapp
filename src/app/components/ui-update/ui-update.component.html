@@ -1,4 +1,7 @@
-<mat-card [ngClass]="{clickable: cardClickable, 'not-clickable': !cardClickable}" onclick="fileInputUiUpdate.click()">
+<mat-card [ngClass]="{clickable: cardClickable, 'not-clickable': !cardClickable}" (click)="isUploading ? false : fileInputUiUpdate.click()">
+  <div id="overlay" *ngIf="isUploading">
+    <mat-progress-spinner [mode]="'determinate'" [value]="uploadPercentage" [diameter]="75"></mat-progress-spinner>
+  </div>
   <mat-card-header>
     <mat-card-title>File update</mat-card-title>
     <mat-card-subtitle>click to upload files</mat-card-subtitle>
