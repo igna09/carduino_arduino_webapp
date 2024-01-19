@@ -4,6 +4,13 @@ import { DragDirective } from '../../dragDrop.directive';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 
+export enum UploadCardStatus {
+  FilesNotSelected,
+  FilesSeletected,
+  Uploading,
+  UploadFinished
+}
+
 @Component({
   selector: 'app-ui-update',
   standalone: true,
@@ -12,30 +19,73 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ui-update.component.scss'
 })
 export class UiUpdateComponent {
-  filesToUpload: any = undefined;
+  filesToUpload: any[] = []; ;
+  status: UploadCardStatus = UploadCardStatus.FilesNotSelected;
 
   fileBrowseHandler(event: any) {
-    this.filesToUpload = event.target.files;
-  }
-
-  uploadFiles(event: any) {
-    for(let i = 0; i < this.filesToUpload.length; i++) {
+    for(let i = 0; i < event.target.files.length; i++) {
       const file = {
         percentage: 0,
-        file: this.filesToUpload[i]
+        file: event.target.files[i]
       };
-      file.percentage = 0;
+      this.filesToUpload.push(file);
+    }
+    this.status = UploadCardStatus.FilesSeletected;
+  }
+
+  manageButtonClick(event: any){
+    event.preventDefault();
+    event.stopPropagation();
+
+    switch(this.status) {
+      case UploadCardStatus.FilesSeletected:
+        this.uploadFiles();
+        break;
+      case UploadCardStatus.UploadFinished:
+        this.resetFilesToUpload();
+        break;
+    }
+  }
+
+  private uploadFiles() {
+    this.filesToUpload.forEach(fileToUpload => {
+      fileToUpload.percentage = 0;
       let data = new FormData();
-      data.append("file", file.file);
+      data.append("file", fileToUpload.file);
       let request = new XMLHttpRequest();
-      request.open('POST', '/');
+      request.open('POST', 'http://localhost/file-upload');
       request.upload.addEventListener('progress', p=>{
         let w = Math.round((p.loaded / p.total)*100);
-        file.percentage = w;
+        fileToUpload.percentage = w;
       });
-      // request.upload.addEventListener('error', () => this.resetSelectedFile());
-      // request.upload.addEventListener('loadend', () => this.resetSelectedFile());
+      request.upload.addEventListener('loadend', p=> {
+        if(!this.filesToUpload.some(e => e.percentage < 100)) {
+          this.status = UploadCardStatus.UploadFinished;
+        }
+      });
       request.send(data);
+    });
+    this.status = UploadCardStatus.Uploading;
+  }
+
+  private resetFilesToUpload() {
+    this.filesToUpload = [];
+  }
+
+  get buttonDisabled() {
+    return this.status === UploadCardStatus.Uploading;
+  }
+
+  get buttonLabel() {
+    switch(this.status) {
+      case UploadCardStatus.FilesSeletected:
+        return 'Upload';
+      case UploadCardStatus.Uploading:
+        return 'Uploading...';
+      case UploadCardStatus.UploadFinished:
+        return 'Clear';
+      default:
+        return '';
     }
   }
 }
