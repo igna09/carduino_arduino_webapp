@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DragDirective } from '../../dragDrop.directive';
 import { MatCardModule } from '@angular/material/card';
@@ -21,6 +21,7 @@ export enum UploadCardStatus {
 export class UiUpdateComponent {
   filesToUpload: any[] = []; ;
   status: UploadCardStatus = UploadCardStatus.FilesNotSelected;
+  @ViewChild('fileInputUiUpdate') fileInputUiUpdate: any = undefined;
 
   fileBrowseHandler(event: any) {
     for(let i = 0; i < event.target.files.length; i++) {
@@ -70,6 +71,7 @@ export class UiUpdateComponent {
 
   private resetFilesToUpload() {
     this.filesToUpload = [];
+    this.fileInputUiUpdate.nativeElement.value = '';
   }
 
   get buttonDisabled() {
