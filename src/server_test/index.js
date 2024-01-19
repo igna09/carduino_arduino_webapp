@@ -11,6 +11,7 @@ const httpServer = http.createServer(app);
 
 app.post('/file-upload', (req, res) => {
   const bb = busboy({ headers: req.headers });
+  let filename;
   bb.on('file', (name, file, info) => {
     filename = info.filename;
     try {
