@@ -4,11 +4,12 @@
 .cards-container {
     display: flex;
     justify-content: space-evenly;
-    // flex-wrap: wrap;
+    flex-wrap: wrap;
     & .card {
         flex: 1 1 0px;
         margin: 2em;
         height: 20em;
         max-width: 25em;
+        min-width: 20em;
     }
 }
