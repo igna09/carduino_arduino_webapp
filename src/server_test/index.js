@@ -17,7 +17,7 @@ app.get('/status', (req, res) => {
 });
 
 app.post('/file-upload', (req, res) => manageFileUpload(req, res));
-app.post('/firmware-update', (req, res) => manageFileUpload(req, res));
+app.post('/update-firmware', (req, res) => manageFileUpload(req, res));
 
 function manageFileUpload(req, res) {
   const bb = busboy({ headers: req.headers });
