@@ -1,8 +1,6 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Logger</mat-card-title>
-  </mat-card-header>
-  <mat-card-content #list>
+<app-card
+  [title]="'Logger'">
+  <div id="content" #content>
     <app-log *ngFor="let log of receivedMessages" [message]="log"></app-log>
-  </mat-card-content>
-</mat-card>
+  </div>
+</app-card>

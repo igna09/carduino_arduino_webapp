@@ -1,13 +1,11 @@
-<mat-card [ngClass]="{clickable: cardClickable, 'not-clickable': !cardClickable}" (click)="isUploading ? false : fileInputUiUpdate.click()">
-  <div id="overlay" *ngIf="isUploading">
-    <mat-progress-spinner [mode]="'determinate'" [value]="uploadPercentage" [diameter]="75"></mat-progress-spinner>
-  </div>
-  <mat-card-header>
-    <mat-card-title>File update</mat-card-title>
-    <mat-card-subtitle>click to upload files</mat-card-subtitle>
-    <!-- <mat-card-subtitle>Drag and drop or click to upload</mat-card-subtitle> -->
-  </mat-card-header>
-  <mat-card-content>
+<app-card
+  [ngClass]="{clickable: cardClickable, 'not-clickable': !cardClickable}"
+  (click)="isUploading ? false : fileInputUiUpdate.click()"
+  [title]="'File update'"
+  [subtitle]="'click to upload files'"
+  [showOverlay]="isUploading"
+  [loaderPercentage]="uploadPercentage">
+  <div id="content">
     <input type="file" style="display: none;" #fileInputUiUpdate id="fileInputUiUpdate" [multiple]="true" (change)="fileBrowseHandler($event)"/>
     <div id="fileList" *ngIf="filesToUpload && filesToUpload.length > 0">
       <div *ngFor="let fileToUpload of filesToUpload" class="fileToUpload">
@@ -21,6 +19,8 @@
         <span id="filename">{{fileToUpload.file.name}}</span>
       </div>
     </div>
-    <button [disabled]="buttonDisabled" *ngIf="filesToUpload && filesToUpload.length > 0" mat-raised-button color="primary" (click)="manageButtonClick($event)" [ngClass]="{clickable: buttonClickable}">{{buttonLabel}}</button>
-  </mat-card-content>
-</mat-card>
+    <div id="buttons">
+      <button [disabled]="buttonDisabled" *ngIf="filesToUpload && filesToUpload.length > 0" mat-raised-button color="primary" (click)="manageButtonClick($event)" [ngClass]="{clickable: buttonClickable}">{{buttonLabel}}</button>
+    </div>
+  </div>
+</app-card>

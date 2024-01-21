@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DragDirective } from '../../../dragDrop.directive';
-import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { CardComponent } from '../card/card.component';
 
 export enum UploadCardStatus {
   FilesNotSelected,
@@ -14,7 +14,7 @@ export enum UploadCardStatus {
 @Component({
   selector: 'app-file-upload',
   standalone: true,
-  imports: [CommonModule, MatCardModule, DragDirective, MatProgressSpinnerModule],
+  imports: [CommonModule, DragDirective, MatProgressSpinnerModule, CardComponent],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss', '../../../shared.scss']
 })

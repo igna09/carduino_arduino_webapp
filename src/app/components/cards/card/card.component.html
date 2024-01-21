@@ -1,6 +1,6 @@
 <mat-card>
   <div id="overlay" *ngIf="showOverlay">
-    <mat-progress-spinner *ngIf="loaderPercentage" [mode]="'determinate'" [value]="loaderPercentage" [diameter]="75"></mat-progress-spinner>
+    <mat-progress-spinner *ngIf="loaderPercentage !== undefined && loaderPercentage > 0" [mode]="'determinate'" [value]="loaderPercentage" [diameter]="75"></mat-progress-spinner>
   </div>
   <mat-card-header>
     <mat-card-title *ngIf="title">{{title}}</mat-card-title>
