@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import {MatCardContent, MatCardHeader, MatCardModule} from '@angular/material/card';
-import { SocketService } from '../../services/socket/socket.service';
+import { SocketService } from '../../../services/socket/socket.service';
 import { LogComponent } from './log/log.component';
 import { CommonModule } from '@angular/common';
-import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-logger',

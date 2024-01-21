@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-evenly;
     // flex-wrap: wrap;
-    & > .card {
+    & .card {
         flex: 1 1 0px;
         margin: 2em;
         height: 20em;

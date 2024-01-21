@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { DragDirective } from '../../dragDrop.directive';
+import { DragDirective } from '../../../dragDrop.directive';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({

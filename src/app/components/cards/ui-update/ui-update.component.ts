@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { DragDirective } from '../../dragDrop.directive';
+import { DragDirective } from '../../../dragDrop.directive';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +16,7 @@ export enum UploadCardStatus {
   standalone: true,
   imports: [CommonModule, MatCardModule, DragDirective, MatProgressSpinnerModule],
   templateUrl: './ui-update.component.html',
-  styleUrls: ['./ui-update.component.scss', '../../shared.scss']
+  styleUrls: ['./ui-update.component.scss', '../../../shared.scss']
 })
 export class UiUpdateComponent {
   filesToUpload: any[] = []; ;
