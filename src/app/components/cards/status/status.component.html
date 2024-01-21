@@ -1,1 +1,6 @@
-<app-card class="card" [title]="'Node status'" [showOverlay]="!status"></app-card>
+<app-card class="card" [title]="'Node status'" [showOverlay]="!status">
+  <div id="container" *ngIf="status">
+    <span>SSID {{status.ssid}}</span>
+    <span>Free heap space {{status.freeHeapSpace}}</span>
+  </div>
+</app-card>
