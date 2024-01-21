@@ -5,11 +5,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StatusService {
-  url: string = `http://${window.location.hostname}/status`;
-
   constructor(private http: HttpClient) { }
 
   getStatus() {
-    return this.http.get<any>(this.url);
+    return this.http.get<any>(`http://${window.location.hostname}/status`);
+  }
+
+  restart() {
+    return this.http.get<any>(`http://${window.location.hostname}/restart`);
   }
 }

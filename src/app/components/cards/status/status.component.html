@@ -1,6 +1,11 @@
 <app-card class="card" [title]="'Node status'" [showOverlay]="!status">
   <div id="container" *ngIf="status">
-    <span>SSID {{status.ssid}}</span>
-    <span>Free heap space {{humanFileSize(status.freeHeap)}}</span>
+    <div id="status">
+      <span>SSID {{status.ssid}}</span>
+      <span>Free heap space {{humanFileSize(status.freeHeap)}}</span>
+    </div>
+    <div id="buttons">
+      <button (click)="restart()">Restart</button>
+    </div>
   </div>
 </app-card>

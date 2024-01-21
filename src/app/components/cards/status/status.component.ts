@@ -16,7 +16,11 @@ export class StatusComponent implements OnInit {
   constructor(private statusService: StatusService) {}
 
   ngOnInit(): void {
-      this.statusService.getStatus().subscribe(response => this.status = response);
+    this.statusService.getStatus().subscribe(response => this.status = response);
+  }
+
+  restart() {
+    this.statusService.restart().subscribe();
   }
 
   /**

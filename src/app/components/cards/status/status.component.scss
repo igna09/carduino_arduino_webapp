@@ -6,4 +6,17 @@
   flex-wrap: nowrap;
   // justify-content: center;
   // align-items: center;
+  & #status {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  & #buttons {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 1em;
+  }
 }
