@@ -12,13 +12,13 @@ export enum UploadCardStatus {
 }
 
 @Component({
-  selector: 'app-ui-update',
+  selector: 'app-file-upload',
   standalone: true,
   imports: [CommonModule, MatCardModule, DragDirective, MatProgressSpinnerModule],
-  templateUrl: './ui-update.component.html',
-  styleUrls: ['./ui-update.component.scss', '../../../shared.scss']
+  templateUrl: './file-upload.component.html',
+  styleUrls: ['./file-upload.component.scss', '../../../shared.scss']
 })
-export class UiUpdateComponent {
+export class FileUploadComponent {
   filesToUpload: any[] = []; ;
   status: UploadCardStatus = UploadCardStatus.FilesNotSelected;
   @ViewChild('fileInputUiUpdate') fileInputUiUpdate: any = undefined;
