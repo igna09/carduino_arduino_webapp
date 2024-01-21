@@ -9,6 +9,11 @@ const port = 80;
 app.use(cors());
 const httpServer = http.createServer(app);
 
+app.get('/status', (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(`{"ssid": "ssid", "freeHeapSpace": 12345}`);
+});
+
 app.post('/file-upload', (req, res) => {
   const bb = busboy({ headers: req.headers });
   let filename;
