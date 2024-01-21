@@ -4,6 +4,8 @@ const path = require('path');
 const busboy = require('busboy');
 const http = require('http');
 const fs = require('fs');
+const ws = require('ws');
+
 const port = 80;
 
 app.use(cors());
@@ -14,7 +16,10 @@ app.get('/status', (req, res) => {
   res.end(`{"ssid": "ssid", "freeHeapSpace": 12345}`);
 });
 
-app.post('/file-upload', (req, res) => {
+app.post('/file-upload', (req, res) => manageFileUpload(req, res));
+app.post('/firmware-update', (req, res) => manageFileUpload(req, res));
+
+function manageFileUpload(req, res) {
   const bb = busboy({ headers: req.headers });
   let filename;
   bb.on('file', (name, file, info) => {
@@ -34,8 +39,7 @@ app.post('/file-upload', (req, res) => {
     res.end(`upload success: ${filename}`);
   });
   req.pipe(bb);
-});
-const ws = require('ws');
+}
 
 let wss = new ws.Server({server: httpServer, path: '/ws'});
 wss.on('connection', (socket) => {
