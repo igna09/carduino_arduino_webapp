@@ -26,11 +26,11 @@ export class LoggerComponent implements OnInit {
     this.socketService.getMessages().subscribe(e => {
       this.receivedMessages.push(e);
 
-      const isScrolledToEnd = this.list.nativeElement.offsetHeight + this.list.nativeElement.scrollTop >= this.list.nativeElement.scrollHeight;
+      /*const isScrolledToEnd = this.list.nativeElement.offsetHeight + this.list.nativeElement.scrollTop >= this.list.nativeElement.scrollHeight;
 
       if(isScrolledToEnd) {
         setTimeout(() => this.list.nativeElement.lastElementChild.scrollIntoView(), 1);
-      }
+      }*/
     });
   }
 

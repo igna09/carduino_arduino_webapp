@@ -1,6 +1,13 @@
 // app-logger {
 //   margin: 20px;
 // }
+
+#root-container {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
 .cards-container {
     display: flex;
     justify-content: space-evenly;
