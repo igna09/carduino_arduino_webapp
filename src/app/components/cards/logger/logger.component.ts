@@ -24,13 +24,15 @@ export class LoggerComponent implements OnInit {
 
   ngOnInit() {
     this.socketService.getMessages().subscribe(e => {
+      const listContainer = this.list.nativeElement.parentElement;
+
+      const isScrolledToEnd = listContainer.scrollTop === (listContainer.scrollHeight - listContainer.clientHeight);
+
       this.receivedMessages.push(e);
 
-      /*const isScrolledToEnd = this.list.nativeElement.offsetHeight + this.list.nativeElement.scrollTop >= this.list.nativeElement.scrollHeight;
-
       if(isScrolledToEnd) {
-        setTimeout(() => this.list.nativeElement.lastElementChild.scrollIntoView(), 1);
-      }*/
+        setTimeout(() => listContainer.scrollTop = listContainer.scrollHeight, 1);
+      }
     });
   }
 
