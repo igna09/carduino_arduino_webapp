@@ -1,0 +1,8 @@
+<app-card class="card" [title]="'File system explorer'" [showOverlay]="!filesList">
+  <div id="container" *ngIf="filesList">
+    <div *ngFor="let entry of filesList" class="entry">
+      <label>{{entry.name}}</label>
+      <button *ngIf="entry.type === 'file'" (click)="downloadFile(entry.name)">Download</button>
+    </div>
+  </div>
+</app-card>

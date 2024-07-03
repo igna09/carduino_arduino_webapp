@@ -5,11 +5,12 @@ import { LoggerComponent } from './components/cards/logger/logger.component';
 import { FileUploadComponent } from './components/cards/file-upload/file-upload.component';
 import { FirmwareUpdateComponent } from './components/cards/firmware-update/firmware-update.component';
 import { StatusComponent } from './components/cards/status/status.component';
+import { FilesystemComponent } from './components/cards/filesystem/filesystem.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LoggerComponent, FileUploadComponent, FirmwareUpdateComponent, StatusComponent],
+  imports: [CommonModule, RouterOutlet, LoggerComponent, FileUploadComponent, FirmwareUpdateComponent, StatusComponent, FilesystemComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss', './shared.scss']
 })

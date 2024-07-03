@@ -13,7 +13,18 @@ const httpServer = http.createServer(app);
 
 app.get('/status', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(`{"ssid": "ssid", "freeHeapSpace": 12345}`);
+  res.end(`{"ssid": "ssid", "freeHeapSpace": 12345, "available_files": ["logs.txt", "test.js"]}`);
+});
+
+app.post('/file', (req, res) => {
+  const options = {
+      root: path.join(__dirname)
+  };
+  res.sendFile('index.js', options);
+});
+app.post('/file-list', (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(`[{"name": "settings.json", "type": "file"}, {"name": "test-folder", "type": "folder"}, {"name": "logs.txt", "type": "file"}]`);
 });
 
 app.post('/file-upload', (req, res) => manageFileUpload(req, res));

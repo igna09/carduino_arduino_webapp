@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { StatusService } from '../../../services/api/status.service';
 import { CommonModule } from '@angular/common';
+import { FileService } from '../../../services/api/file.service';
 
 @Component({
   selector: 'app-status',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class StatusComponent implements OnInit {
   status: any = undefined;
 
-  constructor(private statusService: StatusService) {}
+  constructor(private statusService: StatusService, private fileService: FileService) {}
 
   ngOnInit(): void {
     this.statusService.getStatus().subscribe(response => this.status = response);
@@ -21,6 +22,14 @@ export class StatusComponent implements OnInit {
 
   restart() {
     this.statusService.restart().subscribe();
+  }
+
+  // downloadLogs() {
+  //   this.downloadFile('logs.txt');
+  // };
+
+  get logsFileAvailable() {
+    return this.status.available_files != undefined && this.status.available_files.includes('logs.txt');
   }
 
   /**

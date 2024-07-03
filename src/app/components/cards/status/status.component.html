@@ -5,6 +5,7 @@
       <span>Free heap space {{humanFileSize(status.freeHeap)}}</span>
     </div>
     <div id="buttons">
+      <!-- <button *ngIf="logsFileAvailable" (click)="downloadLogs()">Download LOGS</button> -->
       <button (click)="restart()">Restart</button>
     </div>
   </div>
