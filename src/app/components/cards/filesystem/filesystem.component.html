@@ -3,6 +3,7 @@
     <div *ngFor="let entry of filesList" class="entry">
       <label>{{entry.name}}</label>
       <button *ngIf="entry.type === 'file'" (click)="downloadFile(entry.name)">Download</button>
+      <button *ngIf="entry.type === 'file'" (click)="deleteFile(entry.name)">Delete</button>
     </div>
   </div>
 </app-card>

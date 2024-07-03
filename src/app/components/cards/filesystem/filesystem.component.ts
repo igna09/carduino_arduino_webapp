@@ -18,7 +18,7 @@ export class FilesystemComponent {
     ngOnInit(): void {
       this.fileService.getFileList("/").subscribe(res => {
         this.filesList = res;
-        this.filesList.sort((a, b) => a - b);
+        this.filesList.sort((a, b) => a.name - b.name);
       });
     }
 
@@ -35,5 +35,9 @@ export class FilesystemComponent {
         URL.revokeObjectURL(blobUrl);
         aElement.remove();
       });
+    }
+
+    deleteFile(filename: string) {
+      this.fileService.deleteFile(filename).subscribe(res => this.ngOnInit());
     }
 }
