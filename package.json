@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-dist": "ng build --aot --optimization --progress --output-hashing none && gzip -9 dist/carduino_arduino_webapp/browser/*"
+    "build-dist": "ng build --aot --optimization --progress --output-hashing none && gzip -9 dist/carduino_arduino_webapp/browser/*",
+    "build_dist_index": "html-minifier --input-dir src/assets/ --output-dir dist/ --remove-comments --collapse-whitespace --minify-css --minify-js"
   },
   "private": true,
   "dependencies": {
@@ -22,6 +23,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "html-minifier": "^4.0.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.7.4",
     "tslib": "^2.3.0",

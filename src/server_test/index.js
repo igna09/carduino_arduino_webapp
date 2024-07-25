@@ -16,7 +16,10 @@ app.get('/status', (req, res) => {
   res.end(`{"ssid": "ssid", "freeHeapSpace": 12345, "available_files": ["logs.txt", "test.js"]}`);
 });
 
-app.post('/file', (req, res) => {
+app.post('/delete-file', (req, res) => {
+  res.status(200).send();
+});
+app.post('/download-file', (req, res) => {
   const options = {
       root: path.join(__dirname)
   };

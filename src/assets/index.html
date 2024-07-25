@@ -1,16 +1,93 @@
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="UTF-8">
-</head>
-<body>
-<p><h1>File Upload</h1></p>
-<form method="POST" action="/file-upload" enctype="multipart/form-data">
-    <p><input type="file" name="file" multiple/></p>
-    <input type="submit" name="upload" value="Upload" title="Upload File">
-</form>
-<p>Some files are missing, upload ALL webapp files (favicon.ico.gz index.html.gz main.js.gz polyfills.js.gz styles.css.gz)</p>
-<p>You will be redirect as soon as the upload ends (if you uploaded ALL files)</p>
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <script type="text/javascript">
+            document.write("<base href='http://" + document.location.host + "' />");
+            // document.write("<base href='http://localhost'/>");
+
+            function post(url, body, callback) {
+              httpRequest(
+                "POST",
+                url,
+                body,
+                callback
+              );
+            }
+
+            function get(url, callback) {
+              httpRequest(
+                "GET",
+                url,
+                undefined,
+                callback
+              );
+            }
+
+            function httpRequest(type, url, body, callback) {
+              const xhr = new XMLHttpRequest();
+              xhr.open(type, url);
+              xhr.setRequestHeader("Content-Type", "application/json");
+              xhr.setRequestHeader("Accept", "application/json");
+              xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+              xhr.onload = (res) => {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                  callback(JSON.parse(xhr.response));
+                } else {
+                  console.error(xhr.statusText, xhr.response);
+                }
+              };
+              if(body) {
+                xhr.send(JSON.stringify(body));
+              } else {
+                xhr.send();
+              }
+            }
+
+            function getAllFiles() {
+                post(
+                  "/file-list",
+                  { path: "/" },
+                  (res) => {
+                    const fileList = document.getElementById("file-list");
+                    fileList.innerHTML = ""; // Clear existing content
+
+                    const table = document.createElement("table");
+                    const headerRow = table.insertRow();
+                    const nameHeader = headerRow.insertCell();
+                    const typeHeader = headerRow.insertCell();
+                    nameHeader.textContent = "Name";
+                    typeHeader.textContent = "Type";
+
+                    res.forEach(file => {
+                      const row = table.insertRow();
+                      const nameCell = row.insertCell();
+                      const typeCell = row.insertCell();
+                      nameCell.textContent = file.name;
+                      typeCell.textContent = file.type;
+                    });
+
+                    fileList.appendChild(table);
+                  }
+                )
+            }
+
+            getAllFiles();
+        </script>
+    </head>
+    <body>
+        <p>
+            <h1>Files</h1>
+            <div id="file-list"></div>
+        </p>
+        <p>
+            <h1>File upload</h1>
+            <form method="POST" action="/file-upload" enctype="multipart/form-data">
+                <span><input type="file" name="file" multiple/></span>
+                <input type="submit" name="upload" value="Upload" title="Upload File">
+            </form>
+            <span>If you are seeing this page means that not every angular has been uploaded (favicon.ico.gz index.html.gz main.js.gz polyfills.js.gz styles.css.gz)</span>
+        </p>
+    </body>
 </html>
