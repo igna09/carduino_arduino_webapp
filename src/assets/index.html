@@ -109,7 +109,13 @@
                           // Implement download logic here, e.g., using a window.open() or a form submission
                           window.open(`/${file.name}`); // Example using a URL
                         });
+                        const deleteButton = document.createElement("button");
+                        deleteButton.textContent = "Delete";
+                        deleteButton.addEventListener("click", () => {
+                          deleteFile(file.name); // Call deleteFile with the file name
+                        });
                         actionCell.appendChild(downloadButton); // Added to actionCell
+                        actionCell.appendChild(deleteButton); // Added to actionCell
                       } else if (file.type === "folder") { // Check if it's a folder
                         const openButton = document.createElement("button");
                         openButton.textContent = "Open";
@@ -131,6 +137,18 @@
 
             function goHome() {
               getAllFiles('/'); // Go back to root
+            }
+
+            function deleteFile(filename) {
+              post(
+                "/delete-file",
+                { filename },
+                (res) => {
+                  // Handle the response from the server
+                  // You might want to refresh the file list or display a message
+                  getAllFiles(currentPath); // Refresh the file list
+                }
+              );
             }
 
             getAllFiles('/');
