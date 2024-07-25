@@ -57,15 +57,26 @@
                     const headerRow = table.insertRow();
                     const nameHeader = headerRow.insertCell();
                     const typeHeader = headerRow.insertCell();
+                    const downloadHeader = headerRow.insertCell(); // Add download header
                     nameHeader.textContent = "Name";
                     typeHeader.textContent = "Type";
+                    downloadHeader.textContent = "Download"; // Set download header text
 
                     res.forEach(file => {
                       const row = table.insertRow();
                       const nameCell = row.insertCell();
                       const typeCell = row.insertCell();
+                      const downloadCell = row.insertCell(); // Add download cell
                       nameCell.textContent = file.name;
-                      typeCell.textContent = file.type;
+                      typeCell.textContent = file.type;if (file.type === "file") { // Check if it's a file
+                      const downloadButton = document.createElement("button");
+                      downloadButton.textContent = "Download";
+                      downloadButton.addEventListener("click", () => {
+                        // Implement download logic here, e.g., using a window.open() or a form submission
+                        window.open(`/${file.name}`); // Example using a URL
+                      });
+                      downloadCell.appendChild(downloadButton);
+                }
                     });
 
                     fileList.appendChild(table);
