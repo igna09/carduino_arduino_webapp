@@ -131,6 +131,10 @@
                     // Enable/disable the "Go Home" button based on current path
                     const homeButton = document.getElementById("home-button");
                     homeButton.disabled = currentPath === '/'; // Disable if at root, enable otherwise
+
+                    // Update the path label
+                    const pathLabel = document.getElementById("path-label");
+                    pathLabel.textContent = currentPath;
                   }
                 )
             }
@@ -157,7 +161,7 @@
     <body>
         <p>
             <h1>Files</h1>
-            <button id="home-button" onclick="goHome();" disabled>Torna alla home</button>
+            <span id="path-label"></span> <button id="home-button" onclick="goHome();" disabled>Torna alla home</button>
             <div id="file-list"></div>
         </p>
         <p>
