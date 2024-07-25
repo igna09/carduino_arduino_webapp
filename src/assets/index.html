@@ -4,8 +4,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
         <script type="text/javascript">
-            document.write("<base href='http://" + document.location.host + "' />");
-            // document.write("<base href='http://localhost'/>");
+            // Determine the base URL dynamically
+            let baseUrl;
+            if (window.location.search.includes('NODE_ENV=development')) {
+                baseUrl = 'http://localhost';
+            } else {
+                baseUrl = window.location.protocol + '//' + window.location.host;
+            }
+            document.write("<base href='" + baseUrl + "' />");
+
+            let currentPath = '/'; // Keep track of the current path
 
             function post(url, body, callback) {
               httpRequest(
@@ -45,10 +53,11 @@
               }
             }
 
-            function getAllFiles() {
+            function getAllFiles(path) {
+                currentPath = path; // Update current path
                 post(
                   "/file-list",
-                  { path: "/" },
+                  { path },
                   (res) => {
                     const fileList = document.getElementById("file-list");
                     fileList.innerHTML = ""; // Clear existing content
@@ -56,40 +65,55 @@
                     const table = document.createElement("table");
                     const headerRow = table.insertRow();
                     const nameHeader = headerRow.insertCell();
-                    const typeHeader = headerRow.insertCell();
-                    const downloadHeader = headerRow.insertCell(); // Add download header
+                    const actionHeader = headerRow.insertCell(); // Changed to "Action" header
+
                     nameHeader.textContent = "Name";
-                    typeHeader.textContent = "Type";
-                    downloadHeader.textContent = "Download"; // Set download header text
+                    actionHeader.textContent = "Action"; // Set action header text
 
                     res.forEach(file => {
                       const row = table.insertRow();
                       const nameCell = row.insertCell();
-                      const typeCell = row.insertCell();
-                      const downloadCell = row.insertCell(); // Add download cell
+                      const actionCell = row.insertCell(); // Changed to "Action" cell
                       nameCell.textContent = file.name;
-                      typeCell.textContent = file.type;if (file.type === "file") { // Check if it's a file
-                      const downloadButton = document.createElement("button");
-                      downloadButton.textContent = "Download";
-                      downloadButton.addEventListener("click", () => {
-                        // Implement download logic here, e.g., using a window.open() or a form submission
-                        window.open(`/${file.name}`); // Example using a URL
-                      });
-                      downloadCell.appendChild(downloadButton);
-                }
+
+                      if (file.type === "file") { // Check if it's a file
+                        const downloadButton = document.createElement("button");
+                        downloadButton.textContent = "Download";
+                        downloadButton.addEventListener("click", () => {
+                          // Implement download logic here, e.g., using a window.open() or a form submission
+                          window.open(`/${file.name}`); // Example using a URL
+                        });
+                        actionCell.appendChild(downloadButton); // Added to actionCell
+                      } else if (file.type === "folder") { // Check if it's a folder
+                        const openButton = document.createElement("button");
+                        openButton.textContent = "Open";
+                        openButton.addEventListener("click", () => {
+                          getAllFiles(file.name); // Call getAllFiles with the folder name
+                        });
+                        actionCell.appendChild(openButton); // Added to actionCell
+                      }
                     });
 
                     fileList.appendChild(table);
+
+                    // Enable/disable the "Go Home" button based on current path
+                    const homeButton = document.getElementById("home-button");
+                    homeButton.disabled = currentPath === '/'; // Disable if at root, enable otherwise
                   }
                 )
             }
 
-            getAllFiles();
+            function goHome() {
+              getAllFiles('/'); // Go back to root
+            }
+
+            getAllFiles('/');
         </script>
     </head>
     <body>
         <p>
             <h1>Files</h1>
+            <button id="home-button" onclick="goHome();" disabled>Torna alla home</button>
             <div id="file-list"></div>
         </p>
         <p>
