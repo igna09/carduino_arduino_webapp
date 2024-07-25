@@ -107,12 +107,12 @@
                         downloadButton.textContent = "Download";
                         downloadButton.addEventListener("click", () => {
                           // Implement download logic here, e.g., using a window.open() or a form submission
-                          window.open(`/${file.name}`); // Example using a URL
+                          window.open(`${currentPath}${file.name}`); // Example using a URL
                         });
                         const deleteButton = document.createElement("button");
                         deleteButton.textContent = "Delete";
                         deleteButton.addEventListener("click", () => {
-                          deleteFile(file.name); // Call deleteFile with the file name
+                          deleteFile(currentPath + file.name); // Call deleteFile with the full path
                         });
                         actionCell.appendChild(downloadButton); // Added to actionCell
                         actionCell.appendChild(deleteButton); // Added to actionCell
@@ -120,7 +120,7 @@
                         const openButton = document.createElement("button");
                         openButton.textContent = "Open";
                         openButton.addEventListener("click", () => {
-                          getAllFiles(file.name); // Call getAllFiles with the folder name
+                          getAllFiles(currentPath + file.name + '/'); // Call getAllFiles with the full path
                         });
                         actionCell.appendChild(openButton); // Added to actionCell
                       }
