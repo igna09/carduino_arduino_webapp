@@ -6,7 +6,7 @@
         <script type="text/javascript">
             // Determine the base URL dynamically
             let baseUrl;
-            if (window.location.search.includes('NODE_ENV=development')) {
+            if (window.location.origin.includes('file://')) {
                 baseUrl = 'http://localhost';
             } else {
                 baseUrl = window.location.protocol + '//' + window.location.host;
