@@ -1,4 +1,5 @@
 const app = require('express')();
+const express = require('express');
 const cors = require('cors')
 const path = require('path');
 const busboy = require('busboy');
@@ -9,6 +10,8 @@ const ws = require('ws');
 const port = 80;
 
 app.use(cors());
+app.use(express.json());
+
 const httpServer = http.createServer(app);
 
 app.get('/status', (req, res) => {
@@ -27,7 +30,7 @@ app.post('/download-file', (req, res) => {
 });
 app.post('/file-list', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(`[{"name": "settings.json", "type": "file"}, {"name": "test-folder", "type": "folder"}, {"name": "logs.txt", "type": "file"}]`);
+  res.end(`[{"name": "${req.body.path}", "type": "file"}, {"name": "settings.json", "type": "file"}, {"name": "test-folder", "type": "folder"}, {"name": "logs.txt", "type": "file"}]`);
 });
 
 app.post('/file-upload', (req, res) => manageFileUpload(req, res));
