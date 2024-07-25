@@ -30,7 +30,7 @@ app.post('/download-file', (req, res) => {
 });
 app.post('/file-list', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(`[{"name": "${req.body.path}", "type": "file"}, {"name": "settings.json", "type": "file"}, {"name": "test-folder", "type": "folder"}, {"name": "logs.txt", "type": "file"}]`);
+  res.end(`[{"name": "${req.body.path}", "type": "file", "size": 12345 }, {"name": "settings.json", "type": "file", "size": 12345 }, {"name": "test-folder", "type": "folder", "size": 12345 }, {"name": "logs.txt", "type": "file", "size": 12345 }]`);
 });
 
 app.post('/file-upload', (req, res) => manageFileUpload(req, res));
