@@ -154,15 +154,22 @@
               );
             }
 
+            function refreshFiles() {
+              getAllFiles(currentPath); // Refresh the file list
+            }
+
             getAllFiles('/');
         </script>
     </head>
     <body>
-        <p>
-            <h1>Files</h1>
-            <span id="path-label"></span> <button id="home-button" onclick="goHome();" disabled>Torna alla home</button>
-            <div id="file-list"></div>
-        </p>
+      <p>
+          <h1>Files</h1>
+          <button onclick="refreshFiles();">Aggiorna</button>
+          <button id="home-button" onclick="goHome();" disabled>Torna alla home</button>
+          <span>Path:</span>
+          <span id="path-label"></span>
+          <div id="file-list"></div>
+      </p>
         <p>
             <h1>File upload</h1>
             <form method="POST" action="/file-upload" enctype="multipart/form-data">
