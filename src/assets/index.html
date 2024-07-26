@@ -105,28 +105,24 @@
 
                       nameCell.textContent = file.name;
                       sizeCell.textContent = humanFileSize(file.size); // Display size for both files and folders
-                      if (file.type === "file") { // Check if it's a file
-                        const downloadButton = document.createElement("button");
-                        downloadButton.textContent = "Download";
-                        downloadButton.addEventListener("click", () => {
-                          // Implement download logic here, e.g., using a window.open() or a form submission
+
+                      const openButton = document.createElement("button");
+                      openButton.textContent = "Open";
+                      openButton.addEventListener("click", () => {
+                        if (file.type === "file") { // Check if it's a file
+                          // Implement open logic here, e.g., using a window.open() or a form submission
                           window.open(`${currentPath}${file.name}`); // Example using a URL
-                        });
-                        const deleteButton = document.createElement("button");
-                        deleteButton.textContent = "Delete";
-                        deleteButton.addEventListener("click", () => {
-                          deleteFile(currentPath + file.name); // Call deleteFile with the full path
-                        });
-                        actionCell.appendChild(downloadButton); // Added to actionCell
-                        actionCell.appendChild(deleteButton); // Added to actionCell
-                      } else if (file.type === "folder") { // Check if it's a folder
-                        const openButton = document.createElement("button");
-                        openButton.textContent = "Open";
-                        openButton.addEventListener("click", () => {
+                        } else if (file.type === "folder") { // Check if it's a folder
                           getAllFiles(currentPath + file.name + '/'); // Call getAllFiles with the full path
-                        });
-                        actionCell.appendChild(openButton); // Added to actionCell
-                      }
+                        }
+                      });
+                      const deleteButton = document.createElement("button");
+                      deleteButton.textContent = "Delete";
+                      deleteButton.addEventListener("click", () => {
+                        deleteFile(currentPath + file.name); // Call deleteFile with the full path
+                      });
+                      actionCell.appendChild(openButton); // Added to actionCell
+                      actionCell.appendChild(deleteButton); // Added to actionCell
                     });
 
                     fileList.appendChild(table);
